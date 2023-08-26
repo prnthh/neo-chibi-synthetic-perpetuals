@@ -10,10 +10,10 @@ using Neo.SmartContract.Framework.Services;
 
 namespace NeoChibiPerpetuals
 {
-    [DisplayName("YourName.NeoChibiPerpetualsContract")]
-    [ManifestExtra("Author", "Your name")]
-    [ManifestExtra("Email", "your@address.invalid")]
-    [ManifestExtra("Description", "Describe your contract...")]
+    [DisplayName("Milady.NeoChibiPerpetualsContract")]
+    [ManifestExtra("Author", "Milady")]
+    [ManifestExtra("Email", "milady@remilia.co")]
+    [ManifestExtra("Description", "Neo chibi perpetuals.")]
     public class NeoChibiPerpetualsContract : SmartContract
     {
         const byte Prefix_NumberStorage = 0x00;
@@ -62,6 +62,30 @@ namespace NeoChibiPerpetuals
             }
 
             ContractManagement.Update(nefFile, manifest, null);
+        }
+
+        public static void DoRequest()
+        {
+            string url = "https://raw.githubusercontent.com/neo-project/examples/master/csharp/Oracle/example.json"; // the content is  { "value": "hello world" }
+            string filter = "$.value";  // JSONPath format https://github.com/atifaziz/JSONPath
+            string callback = "callback"; // callback method
+            object userdata = "userdata"; // arbitrary type
+            long gasForResponse = Oracle.MinimumResponseFee;
+
+            Oracle.Request(url, filter, callback, userdata, gasForResponse);
+        }
+
+        public static void Callback(string url, string userdata, OracleResponseCode code, string result)
+        {
+            if (ExecutionEngine.CallingScriptHash != Oracle.Hash) throw new Exception("Unauthorized!");
+            if (code != OracleResponseCode.Success) throw new Exception("Oracle response failure with code " + (byte)code);
+
+            object ret = StdLib.JsonDeserialize(result); // [ "hello world" ]
+            object[] arr = (object[])ret;
+            string value = (string)arr[0];
+
+            Runtime.Log("userdata: " + userdata);
+            Runtime.Log("response value: " + value);
         }
     }
 }

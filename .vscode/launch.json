@@ -1,0 +1,30 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "NeoChibiPerpetualsContract.nef",
+            "type": "neo-contract",
+            "request": "launch",
+            "program": "${workspaceFolder}/contracts/NeoChibiPerpetuals/src/bin/sc/NeoChibiPerpetualsContract.nef",
+            "invocation": {
+                "operation": "<insert operation here>",
+                "args": []
+            },
+            "storage": []
+        },
+        {
+            "name": "HelloWorldContract.nef",
+            "type": "neo-contract",
+            "request": "launch",
+            "program": "${workspaceFolder}/contracts/HelloWorld/src/bin/sc/HelloWorldContract.nef",
+            "invocation": {
+                "operation": "<insert operation here>",
+                "args": []
+            },
+            "storage": []
+        }
+    ]
+}

@@ -1,0 +1,7 @@
+[
+  {
+    "contract": "YourName.NeoChibiPerpetualsContract",
+    "operation": "getNumber",
+    "args": []
+  }
+]

@@ -1,0 +1,12 @@
+/Users/prnth/Documents/GitHub/neo-chibi-synthetic-perpetuals/contracts/HelloWorld/src/obj/Debug/net6.0/HelloWorldContract.csproj.AssemblyReference.cache
+/Users/prnth/Documents/GitHub/neo-chibi-synthetic-perpetuals/contracts/HelloWorld/src/obj/Debug/net6.0/HelloWorldContract.GeneratedMSBuildEditorConfig.editorconfig
+/Users/prnth/Documents/GitHub/neo-chibi-synthetic-perpetuals/contracts/HelloWorld/src/obj/Debug/net6.0/HelloWorldContract.AssemblyInfoInputs.cache
+/Users/prnth/Documents/GitHub/neo-chibi-synthetic-perpetuals/contracts/HelloWorld/src/obj/Debug/net6.0/HelloWorldContract.AssemblyInfo.cs
+/Users/prnth/Documents/GitHub/neo-chibi-synthetic-perpetuals/contracts/HelloWorld/src/obj/Debug/net6.0/HelloWorldContract.csproj.CoreCompileInputs.cache
+/Users/prnth/Documents/GitHub/neo-chibi-synthetic-perpetuals/contracts/HelloWorld/src/bin/Debug/net6.0/HelloWorldContract.deps.json
+/Users/prnth/Documents/GitHub/neo-chibi-synthetic-perpetuals/contracts/HelloWorld/src/bin/Debug/net6.0/HelloWorldContract.dll
+/Users/prnth/Documents/GitHub/neo-chibi-synthetic-perpetuals/contracts/HelloWorld/src/bin/Debug/net6.0/HelloWorldContract.pdb
+/Users/prnth/Documents/GitHub/neo-chibi-synthetic-perpetuals/contracts/HelloWorld/src/obj/Debug/net6.0/HelloWorldContract.dll
+/Users/prnth/Documents/GitHub/neo-chibi-synthetic-perpetuals/contracts/HelloWorld/src/obj/Debug/net6.0/refint/HelloWorldContract.dll
+/Users/prnth/Documents/GitHub/neo-chibi-synthetic-perpetuals/contracts/HelloWorld/src/obj/Debug/net6.0/HelloWorldContract.pdb
+/Users/prnth/Documents/GitHub/neo-chibi-synthetic-perpetuals/contracts/HelloWorld/src/obj/Debug/net6.0/ref/HelloWorldContract.dll

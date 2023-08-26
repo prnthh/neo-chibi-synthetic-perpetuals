@@ -1,0 +1,1 @@
+{"name":"HelloWorldContract","groups":[],"features":{},"supportedstandards":[],"abi":{"methods":[{"name":"main","offset":0,"safe":false,"returntype":"Void","parameters":[]}],"events":[]},"permissions":[],"trusts":[],"extra":{}}
