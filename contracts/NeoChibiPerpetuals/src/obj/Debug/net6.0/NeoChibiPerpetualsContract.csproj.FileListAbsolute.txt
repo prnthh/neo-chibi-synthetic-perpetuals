@@ -1,0 +1,12 @@
+/Users/prnth/Documents/GitHub/neo-chibi-synthetic-perpetuals/contracts/NeoChibiPerpetuals/src/bin/Debug/net6.0/NeoChibiPerpetualsContract.deps.json
+/Users/prnth/Documents/GitHub/neo-chibi-synthetic-perpetuals/contracts/NeoChibiPerpetuals/src/bin/Debug/net6.0/NeoChibiPerpetualsContract.dll
+/Users/prnth/Documents/GitHub/neo-chibi-synthetic-perpetuals/contracts/NeoChibiPerpetuals/src/bin/Debug/net6.0/NeoChibiPerpetualsContract.pdb
+/Users/prnth/Documents/GitHub/neo-chibi-synthetic-perpetuals/contracts/NeoChibiPerpetuals/src/obj/Debug/net6.0/NeoChibiPerpetualsContract.csproj.AssemblyReference.cache
+/Users/prnth/Documents/GitHub/neo-chibi-synthetic-perpetuals/contracts/NeoChibiPerpetuals/src/obj/Debug/net6.0/NeoChibiPerpetualsContract.GeneratedMSBuildEditorConfig.editorconfig
+/Users/prnth/Documents/GitHub/neo-chibi-synthetic-perpetuals/contracts/NeoChibiPerpetuals/src/obj/Debug/net6.0/NeoChibiPerpetualsContract.AssemblyInfoInputs.cache
+/Users/prnth/Documents/GitHub/neo-chibi-synthetic-perpetuals/contracts/NeoChibiPerpetuals/src/obj/Debug/net6.0/NeoChibiPerpetualsContract.AssemblyInfo.cs
+/Users/prnth/Documents/GitHub/neo-chibi-synthetic-perpetuals/contracts/NeoChibiPerpetuals/src/obj/Debug/net6.0/NeoChibiPerpetualsContract.csproj.CoreCompileInputs.cache
+/Users/prnth/Documents/GitHub/neo-chibi-synthetic-perpetuals/contracts/NeoChibiPerpetuals/src/obj/Debug/net6.0/NeoChibiPerpetualsContract.dll
+/Users/prnth/Documents/GitHub/neo-chibi-synthetic-perpetuals/contracts/NeoChibiPerpetuals/src/obj/Debug/net6.0/refint/NeoChibiPerpetualsContract.dll
+/Users/prnth/Documents/GitHub/neo-chibi-synthetic-perpetuals/contracts/NeoChibiPerpetuals/src/obj/Debug/net6.0/NeoChibiPerpetualsContract.pdb
+/Users/prnth/Documents/GitHub/neo-chibi-synthetic-perpetuals/contracts/NeoChibiPerpetuals/src/obj/Debug/net6.0/ref/NeoChibiPerpetualsContract.dll
