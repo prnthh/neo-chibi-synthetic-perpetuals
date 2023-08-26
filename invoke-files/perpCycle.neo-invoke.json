@@ -1,0 +1,21 @@
+[
+  {
+    "contract": "Milady.NeoChibiPerpetualsContract",
+    "operation": "currentIndex"
+  },
+  {
+    "contract": "Milady.NeoChibiPerpetualsContract",
+    "operation": "currentMarkPrice",
+    "args": []
+  },
+  {
+    "contract": "Milady.NeoChibiPerpetualsContract",
+    "operation": "addLongLiquidity",
+    "args": [200]
+  },
+  {
+    "contract": "Milady.NeoChibiPerpetualsContract",
+    "operation": "removeLongLiquidity",
+    "args": [200]
+  }
+]

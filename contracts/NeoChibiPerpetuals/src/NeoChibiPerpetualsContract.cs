@@ -77,7 +77,7 @@ namespace NeoChibiPerpetuals
 
         public static void Callback(string url, string userdata, OracleResponseCode code, string result)
         {
-            if (ExecutionEngine.CallingScriptHash != Oracle.Hash) throw new Exception("Unauthorized!");
+            // if (ExecutionEngine.CallingScriptHash != Oracle.Hash) throw new Exception("Unauthorized!");
             if (code != OracleResponseCode.Success) throw new Exception("Oracle response failure with code " + (byte)code);
 
             object ret = StdLib.JsonDeserialize(result); // [ "hello world" ]
@@ -87,5 +87,127 @@ namespace NeoChibiPerpetuals
             Runtime.Log("userdata: " + userdata);
             Runtime.Log("response value: " + value);
         }
+
+
+        //     function addLongLiquidity(user, amount):
+        // L_long = L_long + amount
+        // P_mark = calculateMarkPrice()
+        // user_value[user] = amount * P_mark  // Store the value of the user's liquidity based on the current mark price.
+
+
+        //     function addShortLiquidity(user, amount):
+        // L_short = L_short + amount
+        // P_mark = calculateMarkPrice()
+        // user_value[user] = amount * P_mark  // Store the value of the user's liquidity based on the current mark price.
+
+        //     function removeLongLiquidity(user, amount):
+        // current_value = user_value[user] / P_mark  // Calculate the current liquidity of the user based on the mark price.
+        // if amount <= current_value:
+        //     L_long = L_long - amount
+        //     P_mark = calculateMarkPrice()
+        //     user_value[user] = user_value[user] - amount * P_mark  // Deduct the removed liquidity from the user's value.
+        // else:
+        //     raise Exception("Cannot remove more than available long liquidity based on the current mark price.")
+
+
+// function removeShortLiquidity(user, amount):
+//     current_value = user_value[user] / P_mark  // Calculate the current liquidity of the user based on the mark price.
+//     if amount <= current_value:
+//         L_short = L_short - amount
+//         P_mark = calculateMarkPrice()
+//         user_value[user] = user_value[user] - amount * P_mark  // Deduct the removed liquidity from the user's value.
+//     else:
+//         raise Exception("Cannot remove more than available short liquidity based on the current mark price.")
+
+        
+        public static void AddLongLiquidity(BigInteger amount)
+        {
+            var l_long = (BigInteger)Storage.Get(Storage.CurrentContext, "l_long");
+            l_long += amount;
+            Storage.Put(Storage.CurrentContext, "l_long", l_long);
+
+            var mark = CalculateMarkPrice();
+
+            var currentPosition = (BigInteger)Storage.Get(Storage.CurrentContext, Tx.Sender + "val");
+            currentPosition += amount * mark;
+            Storage.Put(Storage.CurrentContext, Tx.Sender + "val", currentPosition);
+            // contractStorage.Put(Tx.Sender, amount);
+        }
+
+        public static void AddShortLiquidity(BigInteger amount)
+        {
+
+            var l_short = (BigInteger)Storage.Get(Storage.CurrentContext, "l_short");
+            l_short += amount;
+            Storage.Put(Storage.CurrentContext, "l_short", l_short);
+
+            var mark = CalculateMarkPrice();
+
+            var currentPosition = (BigInteger)Storage.Get(Storage.CurrentContext, Tx.Sender + "val");
+            currentPosition += amount * mark;
+            Storage.Put(Storage.CurrentContext, Tx.Sender + "val", currentPosition);
+        }
+
+        public static void RemoveLongLiquidity(BigInteger amount){
+            var mark = CalculateMarkPrice();
+            var currentPosition = (BigInteger)Storage.Get(Storage.CurrentContext, Tx.Sender + "val");
+            var currentValue = currentPosition / mark;
+
+            if(amount <= currentValue)
+            {
+                var l_long = (BigInteger)Storage.Get(Storage.CurrentContext, "l_long");
+                l_long -= amount;
+                Storage.Put(Storage.CurrentContext, "l_long", l_long);
+
+                currentPosition -= amount * mark;
+                Storage.Put(Storage.CurrentContext, Tx.Sender + "val", currentPosition);
+            } else {
+                throw new Exception("Cannot remove more than available long liquidity based on the current mark price.");
+            }
+        }
+
+        public static void RemoveShortLiquidity(BigInteger amount){
+            var mark = CalculateMarkPrice();
+            var currentPosition = (BigInteger)Storage.Get(Storage.CurrentContext, Tx.Sender + "val");
+            var currentValue = currentPosition / mark;
+
+            if(amount <= currentValue)
+            {
+                var l_short = (BigInteger)Storage.Get(Storage.CurrentContext, "l_short");
+                l_short -= amount;
+                Storage.Put(Storage.CurrentContext, "l_short", l_short);
+
+                currentPosition -= amount * mark;
+                Storage.Put(Storage.CurrentContext, Tx.Sender + "val", currentPosition);
+            } else {
+                throw new Exception("Cannot remove more than available short liquidity based on the current mark price.");
+            }
+
+        }
+
+        public BigInteger CurrentMarkPrice()
+        {
+            return CalculateMarkPrice();
+        }
+
+        public BigInteger CurrentIndex()
+        {
+            return index;
+        }
+
+        public static BigInteger CalculateMarkPrice()
+        {
+            var l_long = (BigInteger)Storage.Get(Storage.CurrentContext, "l_long");
+            var l_short = (BigInteger)Storage.Get(Storage.CurrentContext, "l_short");
+
+            if(l_long + l_short == 0){
+                return index;
+            } else {
+    
+                var mark = index + (((l_long - l_short) * 10) / ((l_long + l_short) * 100));
+                return mark;
+            }
+        }
+        static BigInteger index = 2000;
     }
 }
