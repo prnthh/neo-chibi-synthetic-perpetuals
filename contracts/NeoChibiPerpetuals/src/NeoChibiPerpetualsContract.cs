@@ -89,39 +89,13 @@ namespace NeoChibiPerpetuals
         }
 
 
-        //     function addLongLiquidity(user, amount):
-        // L_long = L_long + amount
-        // P_mark = calculateMarkPrice()
-        // user_value[user] = amount * P_mark  // Store the value of the user's liquidity based on the current mark price.
-
-
-        //     function addShortLiquidity(user, amount):
-        // L_short = L_short + amount
-        // P_mark = calculateMarkPrice()
-        // user_value[user] = amount * P_mark  // Store the value of the user's liquidity based on the current mark price.
-
-        //     function removeLongLiquidity(user, amount):
-        // current_value = user_value[user] / P_mark  // Calculate the current liquidity of the user based on the mark price.
-        // if amount <= current_value:
-        //     L_long = L_long - amount
-        //     P_mark = calculateMarkPrice()
-        //     user_value[user] = user_value[user] - amount * P_mark  // Deduct the removed liquidity from the user's value.
-        // else:
-        //     raise Exception("Cannot remove more than available long liquidity based on the current mark price.")
-
-
-// function removeShortLiquidity(user, amount):
-//     current_value = user_value[user] / P_mark  // Calculate the current liquidity of the user based on the mark price.
-//     if amount <= current_value:
-//         L_short = L_short - amount
-//         P_mark = calculateMarkPrice()
-//         user_value[user] = user_value[user] - amount * P_mark  // Deduct the removed liquidity from the user's value.
-//     else:
-//         raise Exception("Cannot remove more than available short liquidity based on the current mark price.")
-
         
         public static void AddLongLiquidity(BigInteger amount)
         {
+
+            // if (Runtime.CallingScriptHash != GAS.Hash)
+            // throw new Exception("Please pay with GAS");
+        
             var l_long = (BigInteger)Storage.Get(Storage.CurrentContext, "l_long");
             l_long += amount;
             Storage.Put(Storage.CurrentContext, "l_long", l_long);
@@ -203,11 +177,11 @@ namespace NeoChibiPerpetuals
             if(l_long + l_short == 0){
                 return index;
             } else {
-    
-                var mark = index + (((l_long - l_short) * 10) / ((l_long + l_short) * 100));
+                var mark = index + (sensitivity * (l_long - l_short) / ((l_long + l_short)));
                 return mark;
             }
         }
-        static BigInteger index = 2000;
+        static BigInteger index = 200000000000;
+        static int sensitivity = 1000;
     }
 }

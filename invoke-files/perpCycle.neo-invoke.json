@@ -11,11 +11,15 @@
   {
     "contract": "Milady.NeoChibiPerpetualsContract",
     "operation": "addLongLiquidity",
-    "args": [200]
+    "args": [2000]
   },
   {
     "contract": "Milady.NeoChibiPerpetualsContract",
     "operation": "removeLongLiquidity",
     "args": [200]
+  },
+  {
+    "contract": "Milady.NeoChibiPerpetualsContract",
+    "operation": "calculateMarkPrice"
   }
 ]
