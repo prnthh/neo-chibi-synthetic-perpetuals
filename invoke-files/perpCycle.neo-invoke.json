@@ -16,7 +16,7 @@
   {
     "contract": "Milady.NeoChibiPerpetualsContract",
     "operation": "removeLongLiquidity",
-    "args": [200]
+    "args": [2000]
   },
   {
     "contract": "Milady.NeoChibiPerpetualsContract",

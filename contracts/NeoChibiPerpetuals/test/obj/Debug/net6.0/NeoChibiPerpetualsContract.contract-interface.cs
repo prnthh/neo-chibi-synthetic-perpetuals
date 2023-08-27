@@ -13,11 +13,9 @@ namespace NeoChibiPerpetualsTests {
     #endif
     [System.ComponentModel.Description("Milady.NeoChibiPerpetualsContract")]
     interface NeoChibiPerpetualsContract {
-        bool changeNumber(System.Numerics.BigInteger positiveNumber);
-        byte[] getNumber();
         void update(byte[] nefFile, string manifest);
-        void doRequest();
-        void callback(string url, string userdata, System.Numerics.BigInteger code, string result);
+        void requestEthereumPrice();
+        void handleEthereumPrice(string url, string userdata, System.Numerics.BigInteger code, string result);
         void addLongLiquidity(System.Numerics.BigInteger amount);
         void addShortLiquidity(System.Numerics.BigInteger amount);
         void removeLongLiquidity(System.Numerics.BigInteger amount);

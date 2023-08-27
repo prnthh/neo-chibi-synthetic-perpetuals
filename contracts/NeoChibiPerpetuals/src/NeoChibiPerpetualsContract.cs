@@ -49,9 +49,9 @@ namespace NeoChibiPerpetuals
         public static void RequestEthereumPrice()
         {
             // Replace this with the appropriate API endpoint for Ethereum price.
-            string url = "https://api.priceplatform.io/v1/assets/ethereum/price";
+            string url = "https://min-api.cryptocompare.com/data/price?fsym=ETH&tsyms=USD";
 
-            string filter = "$.price_usd"; // Assuming the API returns price in a field called "price_usd".
+            string filter = "$.USD"; // Assuming the API returns price in a field called "price_usd".
             string callback = "HandleEthereumPrice"; // Rename callback method to better reflect its purpose.
             object userdata = "ethPriceRequest"; // Updated to indicate the purpose of the request.
             long gasForResponse = Oracle.MinimumResponseFee;
@@ -66,7 +66,8 @@ namespace NeoChibiPerpetuals
 
             object ret = StdLib.JsonDeserialize(result); 
             object[] arr = (object[])ret;
-            string ethPrice = (string)arr[0];
+            BigInteger ethPrice = (BigInteger)arr[0];
+
 
             // Store the Ethereum price for use in your vAMM logic.
             Storage.Put(Storage.CurrentContext, "ethPrice", ethPrice);
@@ -144,29 +145,30 @@ namespace NeoChibiPerpetuals
 
         }
 
-        public BigInteger CurrentMarkPrice()
+        public static BigInteger CurrentMarkPrice()
         {
             return CalculateMarkPrice();
         }
 
-        public BigInteger CurrentIndex()
+        public static BigInteger CurrentIndex()
         {
-            return index;
+            return (BigInteger)Storage.Get(Storage.CurrentContext, "ethPrice");
         }
 
         public static BigInteger CalculateMarkPrice()
         {
+            RequestEthereumPrice();
+
             var l_long = (BigInteger)Storage.Get(Storage.CurrentContext, "l_long");
             var l_short = (BigInteger)Storage.Get(Storage.CurrentContext, "l_short");
 
             if(l_long + l_short == 0){
-                return index;
+                return CurrentIndex();
             } else {
-                var mark = index + (sensitivity * (l_long - l_short) / ((l_long + l_short)));
+                var mark = CurrentIndex() + (sensitivity * (l_long - l_short) / ((l_long + l_short)));
                 return mark;
             }
         }
-        static BigInteger index = 200000000000;
         static int sensitivity = 1000;
     }
 }
