@@ -23,24 +23,6 @@ namespace NeoChibiPerpetuals
         [DisplayName("NumberChanged")]
         public static event Action<UInt160, BigInteger> OnNumberChanged;
 
-        public static bool ChangeNumber(BigInteger positiveNumber)
-        {
-            if (positiveNumber < 0)
-            {
-                throw new Exception("Only positive numbers are allowed.");
-            }
-
-            StorageMap contractStorage = new(Storage.CurrentContext, Prefix_NumberStorage);
-            contractStorage.Put(Tx.Sender, positiveNumber);
-            OnNumberChanged(Tx.Sender, positiveNumber);
-            return true;
-        }
-
-        public static ByteString GetNumber()
-        {
-            StorageMap contractStorage = new(Storage.CurrentContext, Prefix_NumberStorage);
-            return contractStorage.Get(Tx.Sender);
-        }
 
         [DisplayName("_deploy")]
         public static void Deploy(object data, bool update)
@@ -64,31 +46,34 @@ namespace NeoChibiPerpetuals
             ContractManagement.Update(nefFile, manifest, null);
         }
 
-        public static void DoRequest()
+        public static void RequestEthereumPrice()
         {
-            string url = "https://raw.githubusercontent.com/neo-project/examples/master/csharp/Oracle/example.json"; // the content is  { "value": "hello world" }
-            string filter = "$.value";  // JSONPath format https://github.com/atifaziz/JSONPath
-            string callback = "callback"; // callback method
-            object userdata = "userdata"; // arbitrary type
+            // Replace this with the appropriate API endpoint for Ethereum price.
+            string url = "https://api.priceplatform.io/v1/assets/ethereum/price";
+
+            string filter = "$.price_usd"; // Assuming the API returns price in a field called "price_usd".
+            string callback = "HandleEthereumPrice"; // Rename callback method to better reflect its purpose.
+            object userdata = "ethPriceRequest"; // Updated to indicate the purpose of the request.
             long gasForResponse = Oracle.MinimumResponseFee;
 
             Oracle.Request(url, filter, callback, userdata, gasForResponse);
         }
 
-        public static void Callback(string url, string userdata, OracleResponseCode code, string result)
+        public static void HandleEthereumPrice(string url, string userdata, OracleResponseCode code, string result)
         {
             // if (ExecutionEngine.CallingScriptHash != Oracle.Hash) throw new Exception("Unauthorized!");
             if (code != OracleResponseCode.Success) throw new Exception("Oracle response failure with code " + (byte)code);
 
-            object ret = StdLib.JsonDeserialize(result); // [ "hello world" ]
+            object ret = StdLib.JsonDeserialize(result); 
             object[] arr = (object[])ret;
-            string value = (string)arr[0];
+            string ethPrice = (string)arr[0];
+
+            // Store the Ethereum price for use in your vAMM logic.
+            Storage.Put(Storage.CurrentContext, "ethPrice", ethPrice);
 
             Runtime.Log("userdata: " + userdata);
-            Runtime.Log("response value: " + value);
+            Runtime.Log("Ethereum price: " + ethPrice);
         }
-
-
         
         public static void AddLongLiquidity(BigInteger amount)
         {
